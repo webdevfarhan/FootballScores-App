@@ -1,0 +1,44 @@
+<!doctype html>
+<html ng-app="FootballApp">
+
+<head>
+  <title>English premier league Analytics</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <base href="/">
+</head>
+
+<!------------------------------------ Navbar ---------------------------->
+
+<nav class="navbar navbar-light bg-light">
+        <div class="mx-auto">
+            <p style="display:inline-block;">English premier league</p>
+            <a class="navbar-brand" href="#">
+              <img id="logo" class="img-fluid" src="images/logo.png" alt="">
+            </a>
+        </div>
+</nav>
+
+<body class="bg">
+ 
+        <div class="container-fluid pb-5 text-center"  id="container">
+            <div class="container pt-3" style="background-color: #f1f2f285; border-radius:5px; height:100%;">
+                <div class="col-12" ng-view></div>
+            </div>
+        </div>
+        
+        
+
+<script src="angular/angular.min.js"></script>
+<script src="angular/angular-route.min.js"></script>
+<script src="angular/app.js"></script>
+<script src="angular/dirPagination.js"></script>
+<script src="angular/controllers/all-controller.js"></script>
+
+</body>
+</html>
