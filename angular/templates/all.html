@@ -1,3 +1,4 @@
+
 <div class="col-12">
   <h3 class="mypara pt-3">Please Checkmark one of the Years :</h3>
     <div class="row">
@@ -5,9 +6,17 @@
       <h3>2015<input type="checkbox" class="check ml-2" ng-model="isChecked2015"></h3></div>
       <div class="col-4"><h3>2016<input type="checkbox" class="check ml-2" ng-model="isChecked2016"></h3></div>
       <div class="col-4"><h3>2017<input type="checkbox" class="check ml-2" ng-model="isChecked2017"></h3></div>
-      <div class="col-12 pb-5 pt-5">
-          <label for="search">Search By Team/Date</label>
+      <div class="col-4 pb-5 pt-5">
+          <label for="search">Search By Team</label>
           <input ng-model="teamSearch" id="search" class="form-control" placeholder="Search By Team/Date">        
+      </div>
+      <div class="col-4 pb-5 pt-5">
+          <label for="search">Search By Team1</label>
+          <input ng-model="team1Search.team1.name" id="search" class="form-control" placeholder="Search By Team1">        
+      </div>
+      <div class="col-4 pb-5 pt-5">
+          <label for="search">Search By Team2</label>
+          <input ng-model="team2Search.team2.name" id="search" class="form-control" placeholder="Search By Team2">        
       </div>
     </div>
 </div>
@@ -33,10 +42,9 @@
 <div style="display:none;" ng-if="isChecked2015==true && isChecked2016==true && isChecked2017==true || isChecked2015!=true && isChecked2016!=true && isChecked2017!=true">
   <div ng-init="vm.year = [2015, 2016, 2017]; vm.loop = vm.totaldata;"></div>
 </div>
-
-<div class="table-responsive" dir-paginate="data in results = (vm.loop | filter: teamSearch) | itemsPerPage:2"  class="col-12 text-center" ng-show="isChecked2015 || isChecked2016 || isChecked2017 || isChecked2015!=true && isChecked2016!=true && isChecked2017!=true">
-    <h3>Displaying for Year : {{vm.year}}</h3>
-    <table class="table table-sm table-dark opac" ng-if="vm.eachDateCheck(data.matches, vm.year)">
+<h3 class="mypara">Displaying for Year : {{vm.year}}</h3>
+<div class="table-responsive" ng-repeat="data in vm.loop | filter: teamSearch" class="col-12 text-center" ng-show="isChecked2015 || isChecked2016 || isChecked2017 || isChecked2015!=true && isChecked2016!=true && isChecked2017!=true">    
+    <table class="table table-sm table-dark opac" ng-if="vm.eachDateCheck(data.matches, vm.year) && vm.checkTeams(data.matches, teamSearch, team1Search.team1.name, team2Search.team2.name)">
       <thead>
         <tr>
         <th scope="col" class="p-3">Date</th>
@@ -46,12 +54,11 @@
         <th scope="col" class="p-3">Winner Team</th>
         </tr>
       </thead>
-      <div ng-if="vm.eachDateCheck(data.matches, vm.year)"><div class="alert alert-info" role="alert"><h3>{{data.name}}</h3></div>
+      <div ng-if="vm.eachDateCheck(data.matches, vm.year) && vm.checkTeams(data.matches, teamSearch, team1Search.team1.name, team2Search.team2.name)"><div class="alert alert-info" role="alert"><h3>{{data.name}}</h3></div>
         <tbody>
-         
-          <tr ng-repeat="matchday in data.matches | filter:teamSearch" ng-if="vm.rowDateCheck(matchday.date.slice(0,4), vm.year)">
+          <tr ng-repeat="matchday in data.matches | filter:teamSearch | filter:team1Search | filter:team2Search" ng-if="vm.rowDateCheck(matchday.date.slice(0,4), vm.year)">
           <td class="p-3">{{matchday.date}}</td>
-          <td class="p-3">{{matchday.team1.name}}</td>
+          <td class="p-3">{{matchday.team1.name;}}</td>
           <td class="p-3"><span ng-class="{won: matchday.score1 > matchday.score2, lost:matchday.score1 < matchday.score2, equal:matchday.score2 == matchday.score1}">{{matchday.score1}}</span><span class="vs">VS</span><span ng-class="{won: matchday.score2 > matchday.score1, lost:matchday.score2 < matchday.score1, equal:matchday.score2 == matchday.score1}">{{matchday.score2}}</span></td>
           <td class="p-3">{{matchday.team2.name}}</td>
           <td class="p-3" ng-show="matchday.score1 > matchday.score2">{{matchday.team1.name}}</td>
@@ -62,5 +69,3 @@
       </div>
     </table>
 </div>
-
-<dir-pagination-controls ng-show="isChecked2015==true || isChecked2016==true || isChecked2017==true || isChecked2015!=true && isChecked2016!=true && isChecked2017!=true" template-url="angular/templates/pagination.html"></dir-pagination-controls>

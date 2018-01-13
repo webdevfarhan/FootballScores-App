@@ -5,6 +5,34 @@ function AllController($http, $q){
     vm.data2015 = [];
     vm.data2016 = [];
     vm.data2017 = [];
+
+    vm.checkTeams = function(matches, teamSearch, team1Search, team2Search){
+        var found = false;
+        if(teamSearch != undefined){
+            found = true;
+        }
+        if(team1Search != undefined){
+            matches.forEach(function(data){
+                var team1 = data.team1.name.toLowerCase();
+                if(team1.search(team1Search) != -1){
+                    found = true;
+                }
+            });
+        }
+        if(team2Search != undefined){
+            matches.forEach(function(data){
+                var team2 = data.team2.name.toLowerCase();
+                if(team2.search(team2Search) != -1){
+                    found = true;
+                }
+            });
+        }
+        if(found == true)
+            return true;
+        if(teamSearch == undefined && team1Search == undefined && team2Search == undefined)
+            return true;
+    }
+
     vm.eachDateCheck = function(matches, year){
         vm.temp = 0, found = false;
         if(Array.isArray(year)){

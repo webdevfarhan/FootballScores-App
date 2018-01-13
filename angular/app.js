@@ -1,4 +1,4 @@
-angular.module("FootballApp", ['ngRoute', 'angularUtils.directives.dirPagination']).config(config);
+angular.module("FootballApp", ['ngRoute']).config(config);
 
 function config($routeProvider, $locationProvider){
     $locationProvider.html5Mode(true).hashPrefix('!');
