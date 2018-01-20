@@ -1,25 +1,34 @@
-
-<div class="col-12">
-  <h3 class="mypara pt-3">Please Checkmark one of the Years :</h3>
+  <h3 class="mypara pt-3">CheckMark Any Year :</h3>
     <div class="row">
-      <div class="col-4">
-      <h3>2015<input type="checkbox" class="check ml-2" ng-model="isChecked2015"></h3></div>
+      <div class="col-4"><h3>2015<input type="checkbox" class="check ml-2" ng-model="isChecked2015"></h3></div>
       <div class="col-4"><h3>2016<input type="checkbox" class="check ml-2" ng-model="isChecked2016"></h3></div>
       <div class="col-4"><h3>2017<input type="checkbox" class="check ml-2" ng-model="isChecked2017"></h3></div>
       <div class="col-4 pb-5 pt-5">
-          <label for="search">Search By Team</label>
-          <input ng-model="teamSearch" id="search" class="form-control" placeholder="Search By Team/Date">        
+          <label for="search">Search Anything</label>
+          <input ng-model="teamSearch" class="form-control" placeholder="Free Search">        
       </div>
       <div class="col-4 pb-5 pt-5">
           <label for="search">Search By Team1</label>
-          <input ng-model="team1Search.team1.name" id="search" class="form-control" placeholder="Search By Team1">        
+          <input ng-model="team1Search.team1.name" class="form-control" placeholder="Search By Team1">        
       </div>
       <div class="col-4 pb-5 pt-5">
           <label for="search">Search By Team2</label>
-          <input ng-model="team2Search.team2.name" id="search" class="form-control" placeholder="Search By Team2">        
+          <input ng-model="team2Search.team2.name" class="form-control" placeholder="Search By Team2">        
+      </div>
+      <div class="col-4 pb-5 pt-5">
+          <label for="search">Search By Matchname</label>
+          <input ng-model="matchfilter.matchname" class="form-control" placeholder="Search by MatchName">        
+      </div>
+      <div class="col-4 pb-5 pt-5">
+          <label for="search">Search By Team1 Score</label>
+          <input ng-model="scorefilter1.score1" class="form-control" placeholder="Team1 Score">        
+      </div>
+      <div class="col-4 pb-5 pt-5">
+          <label for="search">Search By Team2 Score</label>
+          <input ng-model="scorefilter2.score2" class="form-control" placeholder="Team2 Score">        
       </div>
     </div>
-</div>
+
 
 <div style="display:none;" ng-if="isChecked2015==true && isChecked2016!=true && isChecked2017!=true">
   <div ng-init="vm.year = 2015; vm.loop = vm.data2015;"></div>
@@ -39,33 +48,46 @@
 <div style="display:none;" ng-if="isChecked2015==true && isChecked2016!=true && isChecked2017==true">
   <div ng-init="vm.year = [2015, 2017]; vm.loop = vm.data2015.concat(vm.data2017);"></div>
 </div>
-<div style="display:none;" ng-if="isChecked2015==true && isChecked2016==true && isChecked2017==true || isChecked2015!=true && isChecked2016!=true && isChecked2017!=true">
-  <div ng-init="vm.year = [2015, 2016, 2017]; vm.loop = vm.totaldata;"></div>
+<div style="display:none;" ng-if="isChecked2015==true && isChecked2016==true && isChecked2017==true">
+  <div ng-init="vm.year = [2015, 2016, 2017]; vm.loop = vm.data2015.concat(vm.data2016).concat(vm.data2017);"></div>
 </div>
+<div style="display:none;" ng-if="isChecked2015!=true && isChecked2016!=true && isChecked2017!=true">
+  <div ng-init="vm.year = 'none'"></div>
+</div>
+
 <h3 class="mypara">Displaying for Year : {{vm.year}}</h3>
-<div class="table-responsive" ng-repeat="data in vm.loop | filter: teamSearch" class="col-12 text-center" ng-show="isChecked2015 || isChecked2016 || isChecked2017 || isChecked2015!=true && isChecked2016!=true && isChecked2017!=true">    
-    <table class="table table-sm table-dark opac" ng-if="vm.eachDateCheck(data.matches, vm.year) && vm.checkTeams(data.matches, teamSearch, team1Search.team1.name, team2Search.team2.name)">
+
+<div ng-show="isChecked2015 || isChecked2016 || isChecked2017">
+  <div class="table-responsive">
+    <table style="margin:0;" class="table table-sm table-dark opac">
       <thead>
-        <tr>
-        <th scope="col" class="p-3">Date</th>
-        <th scope="col" class="p-3">Team1</th>
-        <th scope="col" class="p-3">Score</th>
-        <th scope="col" class="p-3">Team2</th>
-        <th scope="col" class="p-3">Winner Team</th>
-        </tr>
+          <tr>
+          <th scope="col" class="p-3">Date</th>
+          <th scope="col" class="p-3">Matchname</th>
+          <th scope="col" class="p-3">Team1</th>
+          <th scope="col" class="p-3">Score</th>
+          <th scope="col" class="p-3">Team2</th>
+          <th scope="col" class="p-3">Winner Team</th>
+          </tr>
       </thead>
-      <div ng-if="vm.eachDateCheck(data.matches, vm.year) && vm.checkTeams(data.matches, teamSearch, team1Search.team1.name, team2Search.team2.name)"><div class="alert alert-info" role="alert"><h3>{{data.name}}</h3></div>
+    </table>
+  </div>
+  <div>
+  <div class="table-responsive" style="padding:0; margin:0;">    
+    <table style="margin:0; text-align:left;" class="table table-sm table-dark opac">
         <tbody>
-          <tr ng-repeat="matchday in data.matches | filter:teamSearch | filter:team1Search | filter:team2Search" ng-if="vm.rowDateCheck(matchday.date.slice(0,4), vm.year)">
-          <td class="p-3">{{matchday.date}}</td>
-          <td class="p-3">{{matchday.team1.name;}}</td>
-          <td class="p-3"><span ng-class="{won: matchday.score1 > matchday.score2, lost:matchday.score1 < matchday.score2, equal:matchday.score2 == matchday.score1}">{{matchday.score1}}</span><span class="vs">VS</span><span ng-class="{won: matchday.score2 > matchday.score1, lost:matchday.score2 < matchday.score1, equal:matchday.score2 == matchday.score1}">{{matchday.score2}}</span></td>
-          <td class="p-3">{{matchday.team2.name}}</td>
-          <td class="p-3" ng-show="matchday.score1 > matchday.score2">{{matchday.team1.name}}</td>
-          <td class="p-3" ng-show="matchday.score2 > matchday.score1">{{matchday.team2.name}}</td>
-          <td class="p-3" ng-show="matchday.score1 == matchday.score2">Draw</td>
+          <tr ng-repeat="matchday in vm.loop | filter: teamSearch | filter:team1Search | filter:team2Search | filter:scorefilter1 | filter:scorefilter2 | filter:matchfilter">
+          <td class="p-2">{{matchday.date}}</td>
+          <td class="p-2">{{matchday.matchname}}</td>
+          <td class="p-2">{{matchday.team1.name;}}</td>
+          <td class="p-2"><span ng-class="{won: matchday.score1 > matchday.score2, lost:matchday.score1 < matchday.score2, equal:matchday.score2 == matchday.score1}">{{matchday.score1}}</span><span class="vs">VS</span><span ng-class="{won: matchday.score2 > matchday.score1, lost:matchday.score2 < matchday.score1, equal:matchday.score2 == matchday.score1}">{{matchday.score2}}</span></td>
+          <td class="p-2">{{matchday.team2.name}}</td>
+          <td class="p-2" ng-show="matchday.score1 > matchday.score2">{{matchday.team1.name}}</td>
+          <td class="p-2" ng-show="matchday.score2 > matchday.score1">{{matchday.team2.name}}</td>
+          <td class="p-2" ng-show="matchday.score1 == matchday.score2">Draw</td>
           </tr>
         </tbody>
-      </div>
     </table>
+  </div>
+  </div>
 </div>

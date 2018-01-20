@@ -10,5 +10,13 @@ function config($routeProvider, $locationProvider){
         controller: 'AllController',
         controllerAs: 'vm',
         templateUrl: 'angular/templates/all.html'
+    }).when("/SingleMatch", {
+        controller: 'SingleMatchController',
+        controllerAs: 'vm',
+        templateUrl: 'angular/templates/SingleMatch.html'
+    }).when("/TeamWise", {
+        controller: 'TeamWiseController',
+        controllerAs: 'vm',
+        templateUrl: 'angular/templates/TeamWise.html'
     });
 }

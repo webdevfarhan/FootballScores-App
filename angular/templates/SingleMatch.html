@@ -1,0 +1,37 @@
+<div style="display:block;" class="input-group mb-3 pt-5">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="inputGroupSelect01"><h3 class="mypara">Select MatchName :</h3></label>
+    </div>
+    <select ng-model="selectoptions" ng-options="data.matchname+'- '+data.team1.name+' '+'VS'+' '+data.team2.name group by data.date for data in vm.arrangedData" class="custom-select">
+       
+    </select>
+</div>
+
+<div ng-show="selectoptions.matchname != undefined">
+  <div class="table-responsive">
+    <table style="margin:0;" class="table table-sm table-dark opac text-center">
+      <thead>
+          <tr>
+          <th scope="col" class="p-3">Date</th>
+          <th scope="col" class="p-3">Matchname</th>
+          <th scope="col" class="p-3">Team1</th>
+          <th scope="col" class="p-3">Score</th>
+          <th scope="col" class="p-3">Team2</th>
+          <th scope="col" class="p-3">Winner Team</th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <td class="p-3">{{selectoptions.date}}</td>
+        <td class="p-3">{{selectoptions.matchname}}</td>
+        <td class="p-3">{{selectoptions.team1.name;}}</td>
+        <td class="p-3"><span ng-class="{won: selectoptions.score1 > selectoptions.score2, lost:selectoptions.score1 < selectoptions.score2, equal:selectoptions.score2 == selectoptions.score1}">{{selectoptions.score1}}</span><span class="vs">VS</span><span ng-class="{won: selectoptions.score2 > selectoptions.score1, lost:selectoptions.score2 < selectoptions.score1, equal:selectoptions.score2 == selectoptions.score1}">{{selectoptions.score2}}</span></td>
+        <td class="p-3">{{selectoptions.team2.name}}</td>
+        <td class="p-3" ng-show="selectoptions.score1 > selectoptions.score2">{{selectoptions.team1.name}}</td>
+        <td class="p-3" ng-show="selectoptions.score2 > selectoptions.score1">{{selectoptions.team2.name}}</td>
+        <td class="p-3" ng-show="selectoptions.score1 == selectoptions.score2">Draw</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

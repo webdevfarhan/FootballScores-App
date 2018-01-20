@@ -1,6 +1,6 @@
-angular.module("FootballApp").controller("AllController", AllController);
+angular.module("FootballApp").controller("SingleMatchController", SingleMatchController);
 
-function AllController($http, $q){
+function SingleMatchController($http, $q){
     var vm = this;
     vm.data2015 = [];
     vm.data2016 = [];
@@ -36,5 +36,8 @@ function AllController($http, $q){
                     }
                 });
             });   
+
+        vm.arrangedData = vm.data2015.concat(vm.data2016).concat(vm.data2017);
     });
+
 }

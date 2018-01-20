@@ -15,23 +15,15 @@
 
 <!------------------------------------ Navbar ---------------------------->
 
-<nav class="navbar navbar-light bg-light">
-        <div class="mx-auto">
-            <p style="display:inline-block;">English premier league</p>
-            <a class="navbar-brand" href="#">
-              <img id="logo" class="img-fluid" src="images/logo.png" alt="">
-            </a>
-        </div>
-</nav>
-
 <body class="bg">
  
         <div class="container-fluid pb-5 text-center"  id="container">
-            <div class="container pt-3" style="background-color: #f1f2f285; border-radius:5px; height:100%;">
+            <div class="container pt-3 pb-5" style="background-color: #f1f2f285; border-radius:5px; height:100%;">
+                <h3 class="mypara pt-3">Choose View :</h3>
                 <div class="nav nav-pills nav-justified" style="background-color:#ffffffa3; border-radius:5px;">
-                    <a class="nav-item nav-link active" href="#">All Matches</a>
-                    <a class="nav-item nav-link" href="#">Single Match</a>
-                    <a class="nav-item nav-link" href="#">Team Wise</a>
+                    <a class="nav-item nav-link active" href="/">All Matches</a>
+                    <a class="nav-item nav-link" href="/SingleMatch">Single Match</a>
+                    <a class="nav-item nav-link" href="/TeamWise">Team Wise</a>
                 </div>
                 <div class="col-12" ng-view></div>
             </div>
@@ -43,6 +35,17 @@
 <script src="angular/angular-route.min.js"></script>
 <script src="angular/app.js"></script>
 <script src="angular/controllers/all-controller.js"></script>
-
+<script src="angular/controllers/single-match-controller.js"></script>
+<script src="angular/controllers/teamwise-controller.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+<script type="text/javascript">
+   $(document).on('click', '.nav-link', function() {
+       $(".nav-link").removeClass("active");
+       $(this).addClass("active");
+   });
+</script>
 </body>
 </html>

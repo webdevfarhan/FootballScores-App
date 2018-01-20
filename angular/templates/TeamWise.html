@@ -1,0 +1,27 @@
+<br />
+<div class="table-responsive">
+  <table style="margin:0;" class="table table-sm table-dark opac text-center">
+    <thead>
+        <tr>
+        <th scope="col" class="p-3">Team Name</th>
+        <th scope="col" class="p-3">Team Code</th>
+        <th scope="col" class="p-3">Total Matches</th>
+        <th scope="col" class="p-3">Total Won</th>
+        <th scope="col" class="p-3">Total Lost</th>
+        <th scope="col" class="p-3">Total Goals</th>
+        </tr>
+    </thead>
+    <div ng-repeat="data in vm.teamArray">
+    <tbody ng-repeat="teamData in vm.object">
+      <tr>
+      <td class="p-3">{{teamData.name}}</td>
+      <td class="p-3">{{teamData.code}}</td>
+      <td class="p-3">{{teamData.totalMatches;}}</td>
+      <td class="p-3">{{teamData.totalWon;}}</td>
+      <td class="p-3">{{teamData.totalLost;}}</td>
+      <td class="p-3">{{teamData.totalGoals;}}</td>
+      </tr>
+    </tbody>
+    </div>
+  </table>
+</div>
