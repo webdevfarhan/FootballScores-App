@@ -1,7 +1,6 @@
 angular.module("FootballApp", ['ngRoute']).config(config);
 
-function config($routeProvider, $locationProvider){
-    $locationProvider.html5Mode(true).hashPrefix('!');
+function config($routeProvider){
     $routeProvider.when("/", {
         controller: 'AllController',
         controllerAs: 'vm',
@@ -18,5 +17,9 @@ function config($routeProvider, $locationProvider){
         controller: 'TeamWiseController',
         controllerAs: 'vm',
         templateUrl: 'angular/templates/TeamWise.html'
+    }).when("/404", {
+        templateUrl: "angular/templates/404.html"
+    }).otherwise({
+        redirectTo: "/404"
     });
 }
